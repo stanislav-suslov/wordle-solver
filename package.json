@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/stanislav-suslov/wordle-solver/issues"
   },
-  "homepage": "https://github.com/stanislav-suslov/wordle-solver#readme"
+  "homepage": "https://github.com/stanislav-suslov/wordle-solver#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
 }
