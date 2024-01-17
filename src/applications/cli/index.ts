@@ -1,9 +1,9 @@
 import * as readline from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
 
-import { DICT } from '../dict'
-import { WordleSolver } from './module'
-import { type LetterStatus, type Letter } from './module/types'
+import { DICT } from '../../../dict'
+import { WordleSolver } from '../../module'
+import { type LetterStatus, type Letter } from '../../module/types'
 
 const rl = readline.createInterface({ input, output })
 
