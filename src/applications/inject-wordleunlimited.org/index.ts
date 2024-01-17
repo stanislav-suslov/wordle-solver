@@ -48,7 +48,6 @@ void (async () => {
   for (const num of [0, 1, 2, 3, 4]) {
     const lastHistory = getHistory().at(-1)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
-    // @ts-expect-error unknown length of lastHistory
     wordleSolver.add(lastHistory)
 
     const { suggest, final } = wordleSolver.guess()

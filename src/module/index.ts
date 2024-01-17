@@ -17,7 +17,7 @@ export class WordleSolver {
     private readonly solutions: string[]
   ) {}
 
-  add (letters: [ItemToAdd, ItemToAdd, ItemToAdd, ItemToAdd, ItemToAdd]): void {
+  add (letters: ItemToAdd[]): void {
     const newHistory = letters.map<GuessHistoryItem>((letter, index) => ({
       index,
       letter: letter.letter,
@@ -42,13 +42,7 @@ export class WordleSolver {
   }
 
   guess (): { suggest: string | undefined, final: boolean } {
-    const available = [
-      getAlphabet(),
-      getAlphabet(),
-      getAlphabet(),
-      getAlphabet(),
-      getAlphabet()
-    ]
+    const available = new Array(5).fill(null).map(() => getAlphabet())
 
     const boundaries = getBoundaries(this.history)
 

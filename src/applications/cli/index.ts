@@ -2,27 +2,28 @@ import * as readline from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
 
 import { DICT } from '../../../dict'
-import { WordleSolver } from '../../module'
+import { type ItemToAdd, WordleSolver } from '../../module'
 import { type Evaluation, type Letter } from '../../module/types'
 
 const rl = readline.createInterface({ input, output })
 
-function answerToItemToAdd (answer: string): Parameters<typeof WordleSolver.prototype.add>[0] {
-  const [a, a1, b, b1, c, c1, d, d1, e, e1] = answer
-
-  const numberToStatusMap: Record<string, Evaluation> = {
+function answerToItemToAdd (answer: string): ItemToAdd[] {
+  const numberToEvaluationMap: Record<string, Evaluation> = {
     0: 'absent',
     1: 'present',
     2: 'correct'
   }
 
-  return [
-    { letter: a.toLowerCase() as Letter, status: numberToStatusMap[a1] },
-    { letter: b.toLowerCase() as Letter, status: numberToStatusMap[b1] },
-    { letter: c.toLowerCase() as Letter, status: numberToStatusMap[c1] },
-    { letter: d.toLowerCase() as Letter, status: numberToStatusMap[d1] },
-    { letter: e.toLowerCase() as Letter, status: numberToStatusMap[e1] }
-  ]
+  return answer.split('').reduce<ItemToAdd[]>((acc, letter, index, self) => {
+    if (index % 2 === 0) {
+      acc.push({
+        letter: letter as Letter,
+        status: numberToEvaluationMap[self[index + 1]]
+      })
+    }
+
+    return acc
+  }, [])
 }
 
 void (async () => {
