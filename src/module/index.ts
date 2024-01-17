@@ -1,9 +1,9 @@
 import { getBoundaries, type GuessHistoryItem } from './solver'
-import { type Letter, type LetterStatus } from './types'
+import { type Letter, type Evaluation } from './types'
 
 export interface ItemToAdd {
   letter: Letter
-  status: LetterStatus
+  status: Evaluation
 }
 
 function getAlphabet (): Letter[] {
@@ -27,8 +27,8 @@ export class WordleSolver {
     const indexesToRemove: number[] = []
 
     this.history.forEach((historyItem, index) => {
-      if (historyItem.status === 'wrong-place') {
-        if (newHistory.findIndex(i => historyItem.letter === i.letter && i.status === 'exact') !== -1) {
+      if (historyItem.status === 'present') {
+        if (newHistory.findIndex(i => historyItem.letter === i.letter && i.status === 'correct') !== -1) {
           indexesToRemove.push(index)
         }
       }

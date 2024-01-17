@@ -6,11 +6,11 @@ describe('WordleSolver', () => {
       const solutions = ['arise', 'cigar', 'semmm', 'sommm', 'sammm']
       const wordleSolver = new WordleSolver(solutions)
       wordleSolver.add([
-        { letter: 'a', status: 'wrong-place' },
-        { letter: 'r', status: 'not-presented' },
-        { letter: 'i', status: 'not-presented' },
-        { letter: 's', status: 'wrong-place' },
-        { letter: 'e', status: 'not-presented' }
+        { letter: 'a', status: 'present' },
+        { letter: 'r', status: 'absent' },
+        { letter: 'i', status: 'absent' },
+        { letter: 's', status: 'present' },
+        { letter: 'e', status: 'absent' }
       ])
 
       const result = wordleSolver.guess()
@@ -23,29 +23,29 @@ describe('WordleSolver', () => {
       const wordleSolver = new WordleSolver(solutions)
 
       wordleSolver.add([
-        { letter: 'a', status: 'not-presented' },
-        { letter: 'r', status: 'not-presented' },
-        { letter: 'i', status: 'wrong-place' },
-        { letter: 's', status: 'not-presented' },
-        { letter: 'e', status: 'exact' }
+        { letter: 'a', status: 'absent' },
+        { letter: 'r', status: 'absent' },
+        { letter: 'i', status: 'present' },
+        { letter: 's', status: 'absent' },
+        { letter: 'e', status: 'correct' }
       ])
       expect(wordleSolver.guess()).toBe('liege')
 
       wordleSolver.add([
-        { letter: 'l', status: 'not-presented' },
-        { letter: 'i', status: 'exact' },
-        { letter: 'e', status: 'not-presented' },
-        { letter: 'g', status: 'not-presented' },
-        { letter: 'e', status: 'exact' }
+        { letter: 'l', status: 'absent' },
+        { letter: 'i', status: 'correct' },
+        { letter: 'e', status: 'absent' },
+        { letter: 'g', status: 'absent' },
+        { letter: 'e', status: 'correct' }
       ])
       expect(wordleSolver.guess()).toBe('pixie')
 
       wordleSolver.add([
-        { letter: 'p', status: 'not-presented' },
-        { letter: 'i', status: 'exact' },
-        { letter: 'x', status: 'not-presented' },
-        { letter: 'i', status: 'not-presented' },
-        { letter: 'e', status: 'exact' }
+        { letter: 'p', status: 'absent' },
+        { letter: 'i', status: 'correct' },
+        { letter: 'x', status: 'absent' },
+        { letter: 'i', status: 'absent' },
+        { letter: 'e', status: 'correct' }
       ])
       expect(wordleSolver.guess()).toBe('cihve')
     })
@@ -55,29 +55,29 @@ describe('WordleSolver', () => {
       const wordleSolver = new WordleSolver(solutions)
 
       wordleSolver.add([
-        { letter: 'a', status: 'not-presented' },
-        { letter: 'r', status: 'not-presented' },
-        { letter: 'i', status: 'not-presented' },
-        { letter: 's', status: 'not-presented' },
-        { letter: 'e', status: 'not-presented' }
+        { letter: 'a', status: 'absent' },
+        { letter: 'r', status: 'absent' },
+        { letter: 'i', status: 'absent' },
+        { letter: 's', status: 'absent' },
+        { letter: 'e', status: 'absent' }
       ])
       expect(wordleSolver.guess()).toBe('humph')
 
       wordleSolver.add([
-        { letter: 'h', status: 'not-presented' },
-        { letter: 'u', status: 'wrong-place' },
-        { letter: 'm', status: 'not-presented' },
-        { letter: 'p', status: 'not-presented' },
-        { letter: 'h', status: 'not-presented' }
+        { letter: 'h', status: 'absent' },
+        { letter: 'u', status: 'present' },
+        { letter: 'm', status: 'absent' },
+        { letter: 'p', status: 'absent' },
+        { letter: 'h', status: 'absent' }
       ])
       expect(wordleSolver.guess()).toBe('cluck')
 
       wordleSolver.add([
-        { letter: 'c', status: 'not-presented' },
-        { letter: 'l', status: 'not-presented' },
-        { letter: 'u', status: 'exact' },
-        { letter: 'c', status: 'not-presented' },
-        { letter: 'k', status: 'not-presented' }
+        { letter: 'c', status: 'absent' },
+        { letter: 'l', status: 'absent' },
+        { letter: 'u', status: 'correct' },
+        { letter: 'c', status: 'absent' },
+        { letter: 'k', status: 'absent' }
       ])
       expect(wordleSolver.guess()).toBe('wound')
     })

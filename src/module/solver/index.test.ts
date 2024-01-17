@@ -10,11 +10,11 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for non existing character', () => {
+  it('returns rule for absent character', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'not-presented'
+      status: 'absent'
     }]
 
     const result = getBoundaries(history)
@@ -25,11 +25,11 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for wrong place character', () => {
+  it('returns rule for present character', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'wrong-place'
+      status: 'present'
     }]
 
     const result = getBoundaries(history)
@@ -40,11 +40,11 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for exact character', () => {
+  it('returns rule for correct character', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'exact'
+      status: 'correct'
     }]
 
     const result = getBoundaries(history)
@@ -55,15 +55,15 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for same exact and wrong-place character', () => {
+  it('returns rule for same correct and present character', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'exact'
+      status: 'correct'
     }, {
       index: 1,
       letter: 'a',
-      status: 'wrong-place'
+      status: 'present'
     }]
 
     const result = getBoundaries(history)
@@ -74,15 +74,15 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for same exact and wrong-place character ', () => {
+  it('returns rule for same corrent and absent character ', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'not-presented'
+      status: 'absent'
     }, {
       index: 3,
       letter: 'a',
-      status: 'exact'
+      status: 'correct'
     }]
 
     const result = getBoundaries(history)
@@ -93,19 +93,19 @@ describe('getBound()', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('returns rule for same exact, wrong-place and non-existing character', () => {
+  it('returns rule for same correct, present and absent character', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'exact'
+      status: 'correct'
     }, {
       index: 1,
       letter: 'a',
-      status: 'wrong-place'
+      status: 'present'
     }, {
       index: 2,
       letter: 'a',
-      status: 'not-presented'
+      status: 'absent'
     }]
 
     const result = getBoundaries(history)
@@ -120,11 +120,11 @@ describe('getBound()', () => {
     const history: GuessHistoryItem[] = [{
       index: 0,
       letter: 'a',
-      status: 'wrong-place'
+      status: 'present'
     }, {
       index: 3,
       letter: 's',
-      status: 'wrong-place'
+      status: 'present'
     }]
 
     const result = getBoundaries(history)

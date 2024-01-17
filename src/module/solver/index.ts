@@ -1,9 +1,9 @@
-import { type Letter, type LetterStatus } from '../types'
+import { type Letter, type Evaluation } from '../types'
 
 export interface GuessHistoryItem {
   index: number
   letter: Letter
-  status: LetterStatus
+  status: Evaluation
 }
 
 export type BoundIndexRule = 'required' | 'find' | 'avoid' | undefined
@@ -28,8 +28,8 @@ export function getBoundaries (
     }
 
     acc[key]
-      .sort((a) => (a.status === 'exact') ? 1 : -1)
-      .sort((a) => (a.status === 'not-presented') ? -1 : 1)
+      .sort((a) => (a.status === 'correct') ? 1 : -1)
+      .sort((a) => (a.status === 'absent') ? -1 : 1)
 
     return acc
   // eslint-disable-next-line @typescript-eslint/prefer-reduce-type-parameter, @typescript-eslint/consistent-type-assertions
@@ -39,16 +39,16 @@ export function getBoundaries (
     const value = historyByLetter[key]
 
     const boundary = value.reduce<Bound['indexRule']>((acc, item, _, self) => {
-      if (item.status === 'not-presented') {
+      if (item.status === 'absent') {
         return ['avoid', 'avoid', 'avoid', 'avoid', 'avoid']
       }
 
-      if (item.status === 'wrong-place') {
+      if (item.status === 'present') {
         const arr: typeof acc = ['find', 'find', 'find', 'find', 'find']
         arr[item.index] = 'avoid'
 
         self
-          .filter(i => i.status === 'not-presented' || i.status === 'wrong-place')
+          .filter(i => i.status === 'absent' || i.status === 'present')
           .forEach((item) => {
             arr[item.index] = 'avoid'
           })
@@ -56,7 +56,7 @@ export function getBoundaries (
         return arr
       }
 
-      if (item.status === 'exact') {
+      if (item.status === 'correct') {
         acc[item.index] = 'required'
       }
 

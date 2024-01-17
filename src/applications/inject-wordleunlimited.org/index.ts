@@ -4,25 +4,19 @@
 
 import { DICT } from '../../../dict'
 import { type ItemToAdd, WordleSolver } from '../../module'
-import { type Letter, type LetterStatus } from '../../module/types'
+import { type Letter, type Evaluation } from '../../module/types'
 
 async function sleep (ms: number): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 function getHistory (): ItemToAdd[][] {
-  const evaluationToStatusMap: Record<string, LetterStatus> = {
-    absent: 'not-presented',
-    present: 'wrong-place',
-    correct: 'exact'
-  }
-
   return Array.from(document.querySelector('body > game-app')!.shadowRoot!.querySelectorAll('game-row')) // eslint-disable-line @typescript-eslint/no-non-null-assertion
     .filter(gameRow => gameRow.getAttribute('letters')!.length > 0) // eslint-disable-line @typescript-eslint/no-non-null-assertion
     .map(gameRow => {
       return Array.from(gameRow.shadowRoot!.querySelectorAll('game-tile')).map(gameTile => ({ // eslint-disable-line @typescript-eslint/no-non-null-assertion
         letter: gameTile.getAttribute('letter') as Letter,
-        status: evaluationToStatusMap[gameTile.getAttribute('evaluation')!] // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        status: gameTile.getAttribute('evaluation')! as Evaluation // eslint-disable-line @typescript-eslint/no-non-null-assertion
       }))
     })
 }

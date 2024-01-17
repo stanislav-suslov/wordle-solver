@@ -3,17 +3,17 @@ import { stdin as input, stdout as output } from 'node:process'
 
 import { DICT } from '../../../dict'
 import { WordleSolver } from '../../module'
-import { type LetterStatus, type Letter } from '../../module/types'
+import { type Evaluation, type Letter } from '../../module/types'
 
 const rl = readline.createInterface({ input, output })
 
 function answerToItemToAdd (answer: string): Parameters<typeof WordleSolver.prototype.add>[0] {
   const [a, a1, b, b1, c, c1, d, d1, e, e1] = answer
 
-  const numberToStatusMap: Record<string, LetterStatus> = {
-    0: 'not-presented',
-    1: 'wrong-place',
-    2: 'exact'
+  const numberToStatusMap: Record<string, Evaluation> = {
+    0: 'absent',
+    1: 'present',
+    2: 'correct'
   }
 
   return [
