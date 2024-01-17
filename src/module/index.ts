@@ -1,7 +1,7 @@
 import { getBoundaries, type GuessHistoryItem } from './solver'
 import { type Letter, type LetterStatus } from './types'
 
-interface ItemToAdd {
+export interface ItemToAdd {
   letter: Letter
   status: LetterStatus
 }
