@@ -2,7 +2,7 @@ import { WordleSolver } from '.'
 
 describe('WordleSolver', () => {
   describe('suggests correctly', () => {
-    it('test #1', () => {
+    it('solves case #1', () => {
       const solutions = ['arise', 'cigar', 'semmm', 'sommm', 'sammm']
       const wordleSolver = new WordleSolver(solutions)
       wordleSolver.add([
@@ -13,12 +13,10 @@ describe('WordleSolver', () => {
         { letter: 'e', status: 'absent' }
       ])
 
-      const result = wordleSolver.guess()
-
-      expect(result).toBe('sammm')
+      expect(wordleSolver.guess().suggest).toBe('sammm')
     })
 
-    it('test #2', () => {
+    it('solves case #2', () => {
       const solutions = ['arise', 'aiege', 'liege', 'pixie', 'cihve']
       const wordleSolver = new WordleSolver(solutions)
 
@@ -29,7 +27,7 @@ describe('WordleSolver', () => {
         { letter: 's', status: 'absent' },
         { letter: 'e', status: 'correct' }
       ])
-      expect(wordleSolver.guess()).toBe('liege')
+      expect(wordleSolver.guess().suggest).toBe('liege')
 
       wordleSolver.add([
         { letter: 'l', status: 'absent' },
@@ -38,7 +36,7 @@ describe('WordleSolver', () => {
         { letter: 'g', status: 'absent' },
         { letter: 'e', status: 'correct' }
       ])
-      expect(wordleSolver.guess()).toBe('pixie')
+      expect(wordleSolver.guess().suggest).toBe('pixie')
 
       wordleSolver.add([
         { letter: 'p', status: 'absent' },
@@ -47,10 +45,10 @@ describe('WordleSolver', () => {
         { letter: 'i', status: 'absent' },
         { letter: 'e', status: 'correct' }
       ])
-      expect(wordleSolver.guess()).toBe('cihve')
+      expect(wordleSolver.guess().suggest).toBe('cihve')
     })
 
-    it('test #3', () => {
+    it('solves case #3', () => {
       const solutions = ['arise', 'humph', 'cluck', 'wound']
       const wordleSolver = new WordleSolver(solutions)
 
@@ -61,7 +59,7 @@ describe('WordleSolver', () => {
         { letter: 's', status: 'absent' },
         { letter: 'e', status: 'absent' }
       ])
-      expect(wordleSolver.guess()).toBe('humph')
+      expect(wordleSolver.guess().suggest).toBe('humph')
 
       wordleSolver.add([
         { letter: 'h', status: 'absent' },
@@ -70,7 +68,7 @@ describe('WordleSolver', () => {
         { letter: 'p', status: 'absent' },
         { letter: 'h', status: 'absent' }
       ])
-      expect(wordleSolver.guess()).toBe('cluck')
+      expect(wordleSolver.guess().suggest).toBe('cluck')
 
       wordleSolver.add([
         { letter: 'c', status: 'absent' },
@@ -79,7 +77,7 @@ describe('WordleSolver', () => {
         { letter: 'c', status: 'absent' },
         { letter: 'k', status: 'absent' }
       ])
-      expect(wordleSolver.guess()).toBe('wound')
+      expect(wordleSolver.guess().suggest).toBe('wound')
     })
   })
 })
