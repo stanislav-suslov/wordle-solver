@@ -10,15 +10,20 @@ async function sleep (ms: number): Promise<void> {
   await new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-function getHistory (): ItemToAdd[][] {
-  return Array.from(document.querySelector('body > game-app')!.shadowRoot!.querySelectorAll('game-row')) // eslint-disable-line @typescript-eslint/no-non-null-assertion
+function getHistory (): ItemToAdd[][] | undefined {
+  const existingRows = Array.from(document.querySelector('body > game-app')!.shadowRoot!.querySelectorAll('game-row')) // eslint-disable-line @typescript-eslint/no-non-null-assertion
     .filter(gameRow => gameRow.getAttribute('letters')!.length > 0) // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    .map(gameRow => {
-      return Array.from(gameRow.shadowRoot!.querySelectorAll('game-tile')).map(gameTile => ({ // eslint-disable-line @typescript-eslint/no-non-null-assertion
-        letter: gameTile.getAttribute('letter') as Letter,
-        status: gameTile.getAttribute('evaluation')! as Evaluation // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      }))
-    })
+
+  if (existingRows.length < 1) {
+    return undefined
+  }
+
+  return existingRows.map(gameRow => {
+    return Array.from(gameRow.shadowRoot!.querySelectorAll('game-tile')).map(gameTile => ({ // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      letter: gameTile.getAttribute('letter') as Letter,
+      status: gameTile.getAttribute('evaluation')! as Evaluation // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    }))
+  })
 }
 
 async function guessWord (word: string): Promise<void> {
@@ -44,9 +49,15 @@ async function guessWord (word: string): Promise<void> {
 void (async () => {
   const wordleSolver = new WordleSolver(DICT.SOLUTION_LIST)
 
+  const history = getHistory()
+
+  if (typeof history === 'undefined') {
+    await guessWord('arise')
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   for (const num of [0, 1, 2, 3, 4]) {
-    const lastHistory = getHistory().at(-1)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    const lastHistory = getHistory()!.at(-1)! // eslint-disable-line @typescript-eslint/no-non-null-assertion
 
     wordleSolver.add(lastHistory)
 
